@@ -1,3 +1,8 @@
 import "./style.css";
+import { Item } from "./items";
+import { Project } from "./projects";
 
-console.log("hello from index.js");
+let item = new Item("titulo", "descrip", "datexxx", 1);
+let defaultProject = new Project("default");
+defaultProject.addItem(item);
+console.log(item);
