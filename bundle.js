@@ -116,7 +116,27 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\nconsole.log(\"hello from index.js\");\n\n\n//# sourceURL=webpack://odin-todo/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./items */ \"./src/items.js\");\n/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./projects */ \"./src/projects.js\");\n\n\n\n\nlet item = new _items__WEBPACK_IMPORTED_MODULE_1__.Item(\"titulo\", \"descrip\", \"datexxx\", 1);\nlet project = new _projects__WEBPACK_IMPORTED_MODULE_2__.Project(\"default\");\nproject.addItem(item);\nconsole.log(item);\n\n\n//# sourceURL=webpack://odin-todo/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/items.js":
+/*!**********************!*\
+  !*** ./src/items.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Item: () => (/* binding */ Item)\n/* harmony export */ });\nclass Item {\n  constructor(title, description, dueDate, priority, project = null) {\n    this.createdAt = new Date();\n    this.title = title;\n    this.description = description;\n    this.dueDate = dueDate;\n    this.priority = priority;\n    this.project = project;\n  }\n}\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/items.js?");
+
+/***/ }),
+
+/***/ "./src/projects.js":
+/*!*************************!*\
+  !*** ./src/projects.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Project: () => (/* binding */ Project)\n/* harmony export */ });\nclass Project {\n  constructor(name) {\n    this.name = name;\n    this.items = [];\n  }\n\n  addItem(item) {\n    this.items.push(item);\n    item.project = this;\n  }\n}\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/projects.js?");
 
 /***/ })
 
