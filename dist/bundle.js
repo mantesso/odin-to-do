@@ -116,7 +116,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./items */ \"./src/items.js\");\n/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./projects */ \"./src/projects.js\");\n/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./storage */ \"./src/storage.js\");\n\n\n\n\n\nconst item = new _items__WEBPACK_IMPORTED_MODULE_1__.Item(\n  \"Buy paint\",\n  \"Purchase white paint for bedroom\",\n  \"2023-01-20\",\n  \"High\"\n);\nconst itemSerialized = JSON.stringify(item);\n\nconsole.log(itemSerialized);\n\nlet defaultProject = new _projects__WEBPACK_IMPORTED_MODULE_2__.Project(\"default\");\ndefaultProject.addItem(item);\n\nsessionStorage.setItem(\"item1\", itemSerialized);\n\n\n//# sourceURL=webpack://odin-todo/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./items */ \"./src/items.js\");\n/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./projects */ \"./src/projects.js\");\n/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./storage */ \"./src/storage.js\");\n\n\n\n\n\nconst item = new _items__WEBPACK_IMPORTED_MODULE_1__.Item({\n  title: \"Buy paint\",\n  description: \"Purchase white paint for the living room\",\n  dueDate: \"2024-01-20\",\n  priority: \"High\",\n});\n\nlet defaultProject = new _projects__WEBPACK_IMPORTED_MODULE_2__.Project(\"default\");\ndefaultProject.addItem(item);\n\n// console.log(item);\nconsole.log(defaultProject);\nconst itemSerialized = JSON.stringify(item);\n// console.log(itemSerialized);\n(0,_storage__WEBPACK_IMPORTED_MODULE_3__.saveItem)(item);\n\nlet retrievedFromStorage = (0,_storage__WEBPACK_IMPORTED_MODULE_3__.getItem)(\"1\");\nretrievedFromStorage.title = \"edited title\";\n\nconsole.log(retrievedFromStorage);\n(0,_storage__WEBPACK_IMPORTED_MODULE_3__.saveItem)(retrievedFromStorage);\n\n\n//# sourceURL=webpack://odin-todo/./src/index.js?");
 
 /***/ }),
 
@@ -126,7 +126,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Item: () => (/* binding */ Item)\n/* harmony export */ });\nclass Item {\n  constructor(\n    title,\n    description,\n    dueDate,\n    priority,\n    project = null,\n    completed = false\n  ) {\n    this.id = ++this.constructor.idCount;\n    this.createdAt = new Date();\n    this.title = title;\n    this.description = description;\n    this.dueDate = dueDate;\n    this.priority = priority;\n    this.project = project;\n  }\n\n  static idCount = 0;\n}\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/items.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Item: () => (/* binding */ Item)\n/* harmony export */ });\nclass Item {\n  static idCount = 0;\n  constructor({ title, description, dueDate, priority, completed = false }) {\n    this.id = ++this.constructor.idCount;\n    this.createdAt = new Date();\n    this.title = title;\n    this.description = description;\n    this.dueDate = dueDate;\n    this.priority = priority;\n  }\n}\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/items.js?");
 
 /***/ }),
 
@@ -136,7 +136,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Project: () => (/* binding */ Project)\n/* harmony export */ });\nclass Project {\n  constructor(name) {\n    this.name = name;\n    this.items = [];\n  }\n\n  addItem(item) {\n    this.items.push(item);\n    item.project = this;\n  }\n}\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/projects.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Project: () => (/* binding */ Project)\n/* harmony export */ });\nclass Project {\n  constructor(name) {\n    this.name = name;\n    this.items = [];\n  }\n\n  addItem(item) {\n    this.items.push(item);\n  }\n}\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/projects.js?");
 
 /***/ }),
 
@@ -146,7 +146,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getItem: () => (/* binding */ getItem),\n/* harmony export */   saveItem: () => (/* binding */ saveItem)\n/* harmony export */ });\n/**\n * Saves an item to localStorage.\n * @param {Item} item - The item to save.\n */\nfunction saveItem(item) {\n  const itemSerialized = JSON.stringify(item);\n  localStorage.setItem(`item${item.id}`, itemSerialized);\n}\n\n/**\n * Retrieves an item from localStorage.\n * @param {string} itemId - The ID of the item to retrieve.\n * @returns {Item | null} - The retrieved item, or null if not found.\n */\nfunction getItem(itemId) {\n  const itemSerialized = localStorage.getItem(`item${itemId}`);\n  return itemSerialized ? JSON.parse(itemSerialized) : null;\n}\n\n// Additional functions for updating and deleting items can follow a similar pattern.\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/storage.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getItem: () => (/* binding */ getItem),\n/* harmony export */   saveItem: () => (/* binding */ saveItem)\n/* harmony export */ });\nfunction saveItem(item) {\n  const itemSerialized = JSON.stringify(item);\n  localStorage.setItem(`item${item.id}`, itemSerialized);\n}\n\nfunction getItem(itemId) {\n  const itemSerialized = localStorage.getItem(`item${itemId}`);\n  return itemSerialized ? JSON.parse(itemSerialized) : null;\n}\n\n\n\n\n//# sourceURL=webpack://odin-todo/./src/storage.js?");
 
 /***/ })
 
