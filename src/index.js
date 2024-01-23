@@ -2,6 +2,10 @@ import "./style.css";
 import { Item } from "./items";
 import { Project } from "./projects";
 import { saveItem, getItem } from "./storage";
+import { addEventListeners, displayProjects } from "./ui";
+
+addEventListeners();
+displayProjects();
 
 const item = new Item({
   title: "Buy paint",

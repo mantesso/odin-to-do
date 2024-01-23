@@ -8,4 +8,9 @@ function getItem(itemId) {
   return itemSerialized ? JSON.parse(itemSerialized) : null;
 }
 
-export { saveItem, getItem };
+function saveProject(project) {
+  const itemsSerialized = JSON.stringify(project.items);
+  localStorage.setItem(project.name, itemsSerialized);
+}
+
+export { saveItem, getItem, saveProject };
