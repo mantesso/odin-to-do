@@ -6,8 +6,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Odin to-do</title>
   </head>
-  <body>
-    <h1 class="text-sm text-blue-700">Odin to-do</h1>
+  <body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-4">Todo App</h1>
+
+
+        <div class="flex gap-4">
+
+            <div class="w-1/3 bg-white p-4 rounded shadow">
+              <div class="flex justify-between w-full">
+                <h2 class="text-lg font-semibold mb-2">Projects</h2>
+                <button class="bg-blue-500 text-white px-2 py-1text-base rounded mb-4" onclick="openProjectForm()">Add Project</button>
+              </div>
+                <ul id="projectList" class="list-disc pl-5">
+                  <li>project</li>
+                </ul>
+            </div>
+
+            <!-- Items Column -->
+            <div class="w-2/3 bg-white p-4 rounded shadow">
+                <div class="flex justify-between">
+                 <h2 class="text-lg font-semibold mb-2">Items</h2>
+                 <button class="bg-blue-500 text-white px-2 py-1text-base rounded mb-4" onclick="openItemForm()">Add Item</button>
+                </div>
+                <ul id="itemList" class="list-disc pl-5">
+                  <li class="flex items-center justify-between bg-gray-100 p-3 rounded mb-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" class="mr-2" onclick="toggleCompleteStatus(/* itemId */)" /* Check if completed: */ checked> <!-- Dynamically set checked based on item's completion status -->
+                        <div class="">
+                            <p class="font-semibold">Item Name</p>
+                            <p class=text-base text-gray-600">Description goes here...</p>
+                            <p class="text-sm text-gray-500">Due: 2024-01-20 | Priority: High</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button class="bg-yellow-500 text-white px-2 py-1 mr-2 text-sm rounded" onclick="editItem(/* itemId */)">Edit</button>
+                        <button class="bg-red-500 text-white px-2 py-1 text-sm rounded" onclick="deleteItem(/* itemId */)">Delete</button>
+                    </div>
+                </li>
+               
+              
+                </ul>
+            </div>
+        </div>
+
+        <!-- Add/Edit Project Dialog -->
+        <dialog id="projectDialog" class="rounded-lg p-0">
+            <form method="dialog" class="bg-white p-4 rounded shadow">
+                <h3 class="text-lg font-semibold">Project Details</h3>
+                <div class="my-4">
+                    <label for="projectName" class="block mb-2">Project Name:</label>
+                    <input type="text" id="projectName" name="projectName" class="border border-gray-300 p-2 w-full">
+                </div>
+                <menu class="flex justify-end gap-2">
+                    <button class="bg-gray-200 text-black px-2 py-1 rounded">Cancel</button>
+                    <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded">Save</button>
+                </menu>
+            </form>
+        </dialog>
+
+        <!-- Add/Edit Item Dialog -->
+        <dialog id="itemDialog" class="rounded-lg p-0">
+            <form method="dialog" class="bg-white p-4 rounded shadow">
+                <h3 class="text-lg font-semibold">Item Details</h3>
+                <div class="my-4">
+                    <label for="itemName" class="block mb-2">Item Name:</label>
+                    <input type="text" id="itemName" name="itemName" class="border border-gray-300 p-2 w-full">
+                </div>
+                <div class="my-4">
+                    <label for="itemDescription" class="block mb-2">Description:</label>
+                    <textarea id="itemDescription" name="itemDescription" rows="4" class="border border-gray-300 p-2 w-full"></textarea>
+                </div>
+                <!-- Additional fields like dueDate, priority can be added here -->
+                <menu class="flex justify-end gap-2">
+                    <button class="bg-gray-200 text-black px-4 py-2 rounded">Cancel</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                </menu>
+            </form>
+        </dialog>
+    </div>
+
+    <script>
+        // JavaScript functions to handle dialog opening
+        function openProjectForm() {
+            document.getElementById('projectDialog').showModal();
+        }
+
+        function openItemForm() {
+            document.getElementById('itemDialog').showModal();
+        }
+    </script>
     <script src="bundle.js"></script>
+</body>
+    
+    
   </body>
 </html
