@@ -1,5 +1,8 @@
 class Project {
+  static idCount = 0;
+
   constructor(name) {
+    this.id = ++this.constructor.idCount;
     this.name = name;
     this.items = [];
   }

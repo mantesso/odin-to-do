@@ -1,6 +1,19 @@
 function saveProject(project) {
-  const itemsSerialized = JSON.stringify(project.items);
-  localStorage.setItem(project.name, itemsSerialized);
+  const projectSerialized = JSON.stringify({
+    name: project.name,
+    items: project.items,
+  });
+
+  localStorage.setItem(project.id, projectSerialized);
 }
 
-export { saveProject };
+// returns an array with all projects name's saved in localStorage
+function getAllProjects() {
+  return localStorage;
+}
+
+function deleteProject(name) {
+  localStorage.removeItem(name);
+}
+
+export { saveProject, getAllProjects, deleteProject };

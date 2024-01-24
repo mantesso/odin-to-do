@@ -1,11 +1,11 @@
 import "./style.css";
 import { Item } from "./items";
 import { Project } from "./projects";
-import { saveProject } from "./storage";
+import { deleteProject, saveProject } from "./storage";
 import { addEventListeners, displayProjects } from "./ui";
 
-addEventListeners();
-displayProjects();
+// addEventListeners();
+// displayProjects();
 
 const item = new Item({
   title: "Buy paint",
@@ -22,6 +22,7 @@ const bbb = new Item({
 });
 
 let defaultProject = new Project("default");
+let secProject = new Project("secProject");
 defaultProject.addItem(item);
 defaultProject.addItem(bbb);
 
@@ -37,6 +38,10 @@ const ccc = new Item({
 
 defaultProject.addItem(ccc);
 saveProject(defaultProject);
+saveProject(secProject);
+
+console.log("all projects:");
+displayProjects();
 
 // // console.log(item);
 // console.log(defaultProject);
