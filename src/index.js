@@ -1,7 +1,7 @@
 import "./style.css";
 import { Item } from "./items";
 import { Project } from "./projects";
-import { saveItem, getItem } from "./storage";
+import { saveProject } from "./storage";
 import { addEventListeners, displayProjects } from "./ui";
 
 addEventListeners();
@@ -14,17 +14,38 @@ const item = new Item({
   priority: "High",
 });
 
+const bbb = new Item({
+  title: "Fix car",
+  description: "fix motor",
+  dueDate: "2024-01-24",
+  priority: "High",
+});
+
 let defaultProject = new Project("default");
 defaultProject.addItem(item);
+defaultProject.addItem(bbb);
 
-// console.log(item);
-console.log(defaultProject);
-const itemSerialized = JSON.stringify(item);
-// console.log(itemSerialized);
-saveItem(item);
+defaultProject.editItem(1, { title: "edited title" });
+saveProject(defaultProject);
 
-let retrievedFromStorage = getItem("1");
-retrievedFromStorage.title = "edited title";
+const ccc = new Item({
+  title: "Fix floor",
+  description: "fix motor",
+  dueDate: "2024-01-24",
+  priority: "High",
+});
 
-console.log(retrievedFromStorage);
-saveItem(retrievedFromStorage);
+defaultProject.addItem(ccc);
+saveProject(defaultProject);
+
+// // console.log(item);
+// console.log(defaultProject);
+// const itemSerialized = JSON.stringify(item);
+// // console.log(itemSerialized);
+// saveItem(item);
+
+// let retrievedFromStorage = getItem("1");
+// retrievedFromStorage.title = "edited title";
+
+// console.log(retrievedFromStorage);
+// saveItem(retrievedFromStorage);
