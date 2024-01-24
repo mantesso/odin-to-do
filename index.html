@@ -21,23 +21,24 @@
             </button>
           </div>
           <ul id="projectList" class="list-disc">
-            <!-- <li
-              class="flex items-center justify-between bg-gray-100 p-3 rounded mb-2"
-            >
-              <div class="flex items-center">
-                <div class="">
-                  <p class="font-semibold">Default Project</p>
+            <template id="projectTemplate">
+              <li
+                class="flex items-center justify-between bg-gray-100 p-3 rounded mb-2"
+              >
+                <div class="flex items-center">
+                  <div class="">
+                    <p class="font-semibold">project_name</p>
+                  </div>
                 </div>
-              </div>
-              <div class="flex items-center">
-                <button
-                  class="border-2 border-red-500 text-red-500 px-2 py-1 text-xs rounded"
-                  onclick="deleteItem(/* itemId */)"
-                >
-                  Delete
-                </button>
-              </div>
-            </li> -->
+                <div class="flex items-center">
+                  <button
+                    class="border-2 border-red-500 text-red-500 px-2 py-1 text-xs rounded"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            </template>
           </ul>
         </div>
 
