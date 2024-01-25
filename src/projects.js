@@ -1,8 +1,18 @@
 class Project {
-  static idCount = 0;
+  static get idCount() {
+    // Retrieve the current idCount from localStorage, defaulting to 0 if not found
+    const storedCount = localStorage.getItem("project_idCount");
+    return storedCount ? parseInt(storedCount, 10) : 0;
+  }
+
+  static set idCount(newValue) {
+    // Update the idCount in localStorage
+    localStorage.setItem("project_idCount", newValue.toString());
+  }
 
   constructor(name) {
-    this.id = ++this.constructor.idCount;
+    this.id = Project.idCount + 1; // Assign an ID before incrementing idCount
+    Project.idCount = this.id; // Update the static idCount to match
     this.name = name;
     this.items = [];
   }

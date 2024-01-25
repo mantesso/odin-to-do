@@ -4,11 +4,13 @@ function saveProject(project) {
     items: project.items,
   });
 
-  localStorage.setItem(project.id, projectSerialized);
+  localStorage.setItem(`project_${project.id}`, projectSerialized);
 }
 
 function getAllProjects() {
-  return { ...localStorage };
+  let storage = { ...localStorage };
+  delete storage.project_idCount;
+  return storage;
 }
 
 function deleteProject(id) {

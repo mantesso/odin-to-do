@@ -23,11 +23,10 @@ function displayProjects() {
   projectList.innerHTML = "";
 
   for (let project in projects) {
-    console.log("project:");
-    console.log(projects[project]);
-    let currentProject = JSON.parse(projects[project]);
+    const currentProject = JSON.parse(projects[project]);
     const projectName = currentProject.name;
     const projectId = project;
+
     const clone = document.importNode(projectTemplate.content, true);
     clone.querySelector("li").id = projectId;
     clone.querySelector("p").textContent = projectName;
@@ -39,7 +38,9 @@ function displayProjects() {
 }
 
 function removeProjectFromList(e) {
-  console.log(e.target.parentNode.parentNode.id);
+  const projectId = e.target.parentNode.parentNode.id;
+  deleteProject(projectId);
+  displayProjects();
 }
 
 export { displayProjects };
