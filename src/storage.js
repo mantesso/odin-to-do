@@ -13,8 +13,13 @@ function getAllProjects() {
   return storage;
 }
 
+function getProject(project_key) {
+  let project = localStorage.getItem(project_key);
+  return JSON.parse(project);
+}
+
 function deleteProject(id) {
   localStorage.removeItem(id);
 }
 
-export { saveProject, getAllProjects, deleteProject };
+export { saveProject, getAllProjects, deleteProject, getProject };

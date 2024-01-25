@@ -54,39 +54,40 @@
             </button>
           </div>
           <ul id="itemList" class="list-disc">
-            <li
-              class="flex items-center justify-between bg-gray-100 p-3 rounded mb-2"
-            >
-              <div class="flex items-center">
-                <input type="checkbox" class="mr-2"
-                onclick="toggleCompleteStatus(/* itemId */)" /* Check if
-                completed: */ checked>
-                <!-- Dynamically set checked based on item's completion status -->
-                <div class="">
-                  <p class="font-semibold">Item Name</p>
-                  <p class="text-base text-gray-600">
-                    Description goes here...
-                  </p>
-                  <p class="text-sm text-gray-500">
-                    Due: 2024-01-20 | Priority: High
-                  </p>
+            <template id="itemTemplate">
+              <li
+                class="flex items-center justify-between bg-gray-100 p-3 rounded mb-2"
+              >
+                <div class="flex items-center">
+                  <input type="checkbox" class="mr-2"
+                  onclick="toggleCompleteStatus(/* itemId */)" /* Check if
+                  completed: */ checked>
+                  <div class="">
+                    <p class="itemName font-semibold">Item Name</p>
+                    <p class="itemDescription text-base text-gray-600">
+                      Description goes here...
+                    </p>
+                    <p class="itemDate text-sm text-gray-500">
+                      Due: 2024-01-20 | Priority: High
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div class="flex items-center space-x-2">
-                <button
-                  class="border-2 border-yellow-500 text-yellow-500 px-2 py-1 text-xs rounded"
-                  onclick="editItem(/* itemId */)"
-                >
-                  Edit
-                </button>
-                <button
-                  class="border-2 border-red-500 text-red-500 px-2 py-1 text-xs rounded"
-                  onclick="deleteItem(/* itemId */)"
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
+                <div class="flex items-center space-x-2">
+                  <button
+                    class="border-2 border-yellow-500 text-yellow-500 px-2 py-1 text-xs rounded"
+                    onclick="editItem(/* itemId */)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    class="border-2 border-red-500 text-red-500 px-2 py-1 text-xs rounded"
+                    onclick="deleteItem(/* itemId */)"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            </template>
           </ul>
         </div>
       </div>

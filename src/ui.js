@@ -1,10 +1,17 @@
 import { Project } from "./projects";
-import { saveProject, getAllProjects, deleteProject } from "./storage";
+import {
+  saveProject,
+  getProject,
+  getAllProjects,
+  deleteProject,
+} from "./storage";
 
 let projectDialog = document.getElementById("projectDialog");
 let projectForm = document.getElementById("projectForm");
 const projectList = document.getElementById("projectList");
 const projectTemplate = document.getElementById("projectTemplate");
+const itemList = document.getElementById("itemList");
+const itemTemplate = document.getElementById("itemTemplate");
 
 let currentProjectId;
 
@@ -16,12 +23,12 @@ projectForm.addEventListener("submit", (event) => {
   projectForm.reset();
   projectDialog.close();
   displayProjects();
-  console.log(newProject);
+  selectCurrentProject(`project_${newProject.id.toString()}`);
 });
 
 function displayProjects() {
   const projects = getAllProjects();
-  console.log(projects);
+  // console.log(projects);
   projectList.innerHTML = "";
 
   for (let project in projects) {
@@ -31,7 +38,10 @@ function displayProjects() {
 
     const clone = document.importNode(projectTemplate.content, true);
     clone.querySelector("li").id = projectId;
-    clone.querySelector("li").addEventListener("click", selectCurrentProject);
+    clone.querySelector("li").addEventListener("click", function (e) {
+      const projectId = e.target.closest("li").id;
+      selectCurrentProject(projectId);
+    });
     clone.querySelector("p").textContent = projectName;
     clone
       .querySelector("button")
@@ -46,19 +56,45 @@ function removeProjectFromList(e) {
   displayProjects();
 }
 
-function selectCurrentProject(e) {
-  const selectedProject = e.target.closest("li");
-  currentProjectId = selectedProject.id;
-  console.log(`current project = ${currentProjectId}`);
-
+function selectCurrentProject(projectId) {
+  // Reset the styling for all project list items
   let projects = projectList.children;
-  for (let i = 0, n = projects.length; i < n; i++) {
+  for (let i = 0; i < projects.length; i++) {
     projects[i].classList.remove("bg-blue-100");
     projects[i].classList.add("bg-gray-100");
   }
 
-  selectedProject.classList.remove("bg-gray-100");
-  selectedProject.classList.add("bg-blue-100");
+  // Select the project list item by ID and update its styling
+  const selectedProject = document.getElementById(projectId);
+  if (selectedProject) {
+    selectedProject.classList.remove("bg-gray-100");
+    selectedProject.classList.add("bg-blue-100");
+    currentProjectId = projectId;
+    console.log(`current project = ${currentProjectId}`);
+    displayItems(currentProjectId); // Assuming this function is correctly set up to display items for the selected project
+  }
+}
+
+function displayItems(projectId) {
+  console.log(projectId);
+  let selectedProject = getProject(projectId);
+  let items = selectedProject.items;
+
+  itemList.innerHTML = "";
+
+  items.forEach((item) => {
+    const clone = document.importNode(itemTemplate.content, true);
+    clone.querySelector(".itemName").textContent = item.name;
+    clone.querySelector(".itemDescription").textContent = item.description;
+    clone.querySelector(".itemDate").textContent = item.dueDate;
+
+    // clone.querySelector("li").addEventListener("click", selectCurrentProject);
+    // clone.querySelector("p").textContent = projectName;
+    // clone
+    // .querySelector("button")
+    // .addEventListener("click", removeProjectFromList);
+    itemList.appendChild(clone);
+  });
 }
 
 export { displayProjects };
