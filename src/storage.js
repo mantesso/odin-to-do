@@ -7,13 +7,12 @@ function saveProject(project) {
   localStorage.setItem(project.id, projectSerialized);
 }
 
-// returns an array with all projects name's saved in localStorage
 function getAllProjects() {
-  return localStorage;
+  return { ...localStorage };
 }
 
-function deleteProject(name) {
-  localStorage.removeItem(name);
+function deleteProject(id) {
+  localStorage.removeItem(id);
 }
 
 export { saveProject, getAllProjects, deleteProject };

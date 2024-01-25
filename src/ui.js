@@ -19,13 +19,15 @@ projectForm.addEventListener("submit", (event) => {
 
 function displayProjects() {
   const projects = getAllProjects();
-  // console.log(JSON.parse(projects["1"]).name);
+  console.log(projects);
   projectList.innerHTML = "";
 
-  for (let i = 1, n = projects.length; i <= n; i++) {
-    console.log(JSON.parse(projects[i]));
-    const projectName = JSON.parse(projects[i]).name;
-    const projectId = i;
+  for (let project in projects) {
+    console.log("project:");
+    console.log(projects[project]);
+    let currentProject = JSON.parse(projects[project]);
+    const projectName = currentProject.name;
+    const projectId = project;
     const clone = document.importNode(projectTemplate.content, true);
     clone.querySelector("li").id = projectId;
     clone.querySelector("p").textContent = projectName;

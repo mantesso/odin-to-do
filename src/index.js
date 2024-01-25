@@ -21,7 +21,7 @@ const bbb = new Item({
   priority: "High",
 });
 
-let defaultProject = new Project("default");
+let defaultProject = new Project("first");
 let secProject = new Project("secProject");
 defaultProject.addItem(item);
 defaultProject.addItem(bbb);
