@@ -14,8 +14,8 @@
           <div class="flex justify-between w-full">
             <h2 class="text-lg font-semibold mb-2">Projects</h2>
             <button
+              id="addProject"
               class="bg-blue-500 text-white px-2 py-1 text-base rounded mb-4"
-              onclick="openProjectForm()"
             >
               Add Project
             </button>
@@ -47,8 +47,8 @@
           <div class="flex justify-between">
             <h2 class="text-lg font-semibold mb-2">Items</h2>
             <button
+              id="addItem"
               class="bg-blue-500 text-white px-2 py-1 text-base rounded mb-4"
-              onclick="openItemForm()"
             >
               Add Item
             </button>
@@ -59,17 +59,14 @@
                 class="flex items-center justify-between bg-gray-100 p-3 rounded mb-2"
               >
                 <div class="flex items-center">
-                  <input type="checkbox" class="mr-2"
-                  onclick="toggleCompleteStatus(/* itemId */)" /* Check if
-                  completed: */ checked>
+                  <input type="checkbox" class="mr-2" />
                   <div class="">
                     <p class="itemTitle font-semibold">Item Title</p>
                     <p class="itemDescription text-base text-gray-600">
                       Description goes here...
                     </p>
-                    <p class="itemDate text-sm text-gray-500">
-                      Due: 2024-01-20 | Priority: High
-                    </p>
+                    <p class="itemDueDate text-sm text-gray-500"></p>
+                    <p class="itemPriority text-sm text-gray-500"></p>
                   </div>
                 </div>
                 <div class="flex items-center space-x-2">
@@ -159,7 +156,7 @@
       </dialog>
     </div>
 
-    <script>
+    <!-- <script>
       // JavaScript functions to handle dialog opening
       function openProjectForm() {
         document.getElementById("projectDialog").showModal();
@@ -168,7 +165,7 @@
       function openItemForm() {
         document.getElementById("itemDialog").showModal();
       }
-    </script>
+    </script> -->
     <script src="bundle.js"></script>
   </body>
 </html>
