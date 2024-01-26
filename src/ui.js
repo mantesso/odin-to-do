@@ -91,8 +91,11 @@ function removeProjectFromList(e) {
 
 function removeItemFromProjectList(e) {
   const itemId = e.target.parentNode.parentNode.id;
+  let parts = itemId.split("_"); //remove item_ from itemId string
+  let parsedItemId = parts[1];
+
   const projectId = currentProjectId;
-  removeItemFromProject(projectId, itemId);
+  removeItemFromProject(projectId, parsedItemId);
   displayItems(projectId);
 }
 
@@ -114,6 +117,10 @@ function selectCurrentProject(projectId) {
   }
 }
 
+function clearItems() {
+  itemList.innerHTML = "";
+}
+
 function displayItems(projectId) {
   let selectedProject = getProject(projectId); // Just use projectId here
 
@@ -123,12 +130,12 @@ function displayItems(projectId) {
   }
 
   let items = selectedProject.items;
-  itemList.innerHTML = "";
+  clearItems();
 
   if (items) {
     items.forEach((item) => {
       const clone = document.importNode(itemTemplate.content, true);
-      clone.querySelector("li").id = item.id;
+      clone.querySelector("li").id = `item_${item.id}`;
       clone.querySelector(".itemTitle").textContent = item.title;
       clone.querySelector(".itemDescription").textContent = item.description;
       if (item.dueDate) {
