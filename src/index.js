@@ -41,7 +41,6 @@ saveProject(defaultProject);
 saveProject(secProject);
 addItemToProject(defaultProject.id, item);
 
-console.log("all projects:");
 displayProjects();
 
 // // console.log(item);

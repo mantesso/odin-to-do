@@ -28,27 +28,26 @@ projectForm.addEventListener("submit", (event) => {
   projectForm.reset();
   projectDialog.close();
   displayProjects();
-  selectCurrentProject(`project_${newProject.id.toString()}`);
+  selectCurrentProject(newProject.id);
 });
 
 itemForm.addEventListener("submit", (event) => {
   event.preventDefault();
   let formContent = event.target.elements;
   let newItem = new Item({
-    title: formContent.itemName.value,
+    title: formContent.itemTitle.value,
     description: formContent.itemDescription.value,
   });
-  let currentProject = getProject(currentProjectId);
-  console.log(`currentProject: ${currentProject}`);
+
   addItemToProject(currentProjectId, newItem);
-  // saveProject(currentProject);
   itemForm.reset();
   itemDialog.close();
+  selectCurrentProject(currentProjectId);
+  displayItems(currentProjectId);
 });
 
 function displayProjects() {
   const projects = getAllProjects();
-  // console.log(projects);
   projectList.innerHTML = "";
 
   for (let project in projects) {
@@ -90,33 +89,36 @@ function selectCurrentProject(projectId) {
     selectedProject.classList.remove("bg-gray-100");
     selectedProject.classList.add("bg-blue-100");
     currentProjectId = projectId;
-    console.log(`current project = ${currentProjectId}`);
     displayItems(currentProjectId);
   }
 }
 
 function displayItems(projectId) {
-  console.log(projectId);
-  let selectedProject = getProject(projectId);
-  console.log(selectedProject);
-  let items = selectedProject.items;
-  console.log(`items: ${items}`);
+  let selectedProject = getProject(projectId); // Just use projectId here
 
+  if (!selectedProject) {
+    console.error(`Project with ID ${projectId} not found.`);
+    return;
+  }
+
+  let items = selectedProject.items;
   itemList.innerHTML = "";
 
-  items.forEach((item) => {
-    const clone = document.importNode(itemTemplate.content, true);
-    clone.querySelector(".itemName").textContent = item.name;
-    clone.querySelector(".itemDescription").textContent = item.description;
-    clone.querySelector(".itemDate").textContent = item.dueDate;
+  if (items) {
+    items.forEach((item) => {
+      const clone = document.importNode(itemTemplate.content, true);
+      clone.querySelector(".itemTitle").textContent = item.title;
+      clone.querySelector(".itemDescription").textContent = item.description;
+      clone.querySelector(".itemDate").textContent = item.dueDate;
 
-    // clone.querySelector("li").addEventListener("click", selectCurrentProject);
-    // clone.querySelector("p").textContent = projectName;
-    // clone
-    // .querySelector("button")
-    // .addEventListener("click", removeProjectFromList);
-    itemList.appendChild(clone);
-  });
+      // clone.querySelector("li").addEventListener("click", selectCurrentProject);
+      // clone.querySelector("p").textContent = projectName;
+      // clone
+      // .querySelector("button")
+      // .addEventListener("click", removeProjectFromList);
+      itemList.appendChild(clone);
+    });
+  }
 }
 
 export { displayProjects };

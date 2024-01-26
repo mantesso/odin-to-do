@@ -1,5 +1,3 @@
-import { Project } from "./projects";
-
 function saveProject(project) {
   const projectSerialized = JSON.stringify({
     name: project.name,
@@ -16,16 +14,11 @@ function getAllProjects() {
 }
 
 function getProject(projectId) {
-  console.log(`getProject projectId: ${projectId}`);
   const projectData = localStorage.getItem(projectId);
 
   if (projectData) {
     const projectObj = JSON.parse(projectData);
     return projectObj;
-    // let project = new Project(projectObj.name);
-    // project.items = projectObj.items;
-    // project.id = projectId;
-    // return project;
   }
   return null;
 }
