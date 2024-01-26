@@ -26,8 +26,8 @@ let secProject = new Project("secProject");
 // defaultProject.addItem(item);
 // defaultProject.addItem(bbb);
 
-// defaultProject.editItem(1, { title: "edited title" });
-// saveProject(defaultProject);
+defaultProject.editItem(1, { title: "edited title" });
+saveProject(defaultProject);
 
 const ccc = new Item({
   title: "Fix floor",

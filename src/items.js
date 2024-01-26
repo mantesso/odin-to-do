@@ -7,6 +7,7 @@ class Item {
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.completed = completed;
   }
 }
 

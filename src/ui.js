@@ -29,7 +29,11 @@ function openProjectForm() {
 }
 
 function openItemForm() {
-  itemDialog.showModal();
+  if (!currentProjectId) {
+    alert("Please select a project.");
+  } else {
+    itemDialog.showModal();
+  }
 }
 
 let currentProjectId;
@@ -51,6 +55,8 @@ itemForm.addEventListener("submit", (event) => {
   let newItem = new Item({
     title: formContent.itemTitle.value,
     description: formContent.itemDescription.value,
+    priority: formContent.itemPriority.value,
+    dueDate: formContent.itemDueDate.value,
   });
 
   addItemToProject(currentProjectId, newItem);
@@ -91,7 +97,7 @@ function removeProjectFromList(e) {
 
 function removeItemFromProjectList(e) {
   const itemId = e.target.parentNode.parentNode.id;
-  let parts = itemId.split("_"); //remove item_ from itemId string
+  let parts = itemId.split("_"); //remove 'item_' from itemId string
   let parsedItemId = parts[1];
 
   const projectId = currentProjectId;
