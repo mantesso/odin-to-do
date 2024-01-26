@@ -1,7 +1,7 @@
 import "./style.css";
 import { Item } from "./items";
 import { Project } from "./projects";
-import { deleteProject, saveProject } from "./storage";
+import { deleteProject, saveProject, addItemToProject } from "./storage";
 import { addEventListeners, displayProjects } from "./ui";
 
 // addEventListeners();
@@ -23,11 +23,11 @@ const bbb = new Item({
 
 let defaultProject = new Project("first");
 let secProject = new Project("secProject");
-defaultProject.addItem(item);
-defaultProject.addItem(bbb);
+// defaultProject.addItem(item);
+// defaultProject.addItem(bbb);
 
-defaultProject.editItem(1, { title: "edited title" });
-saveProject(defaultProject);
+// defaultProject.editItem(1, { title: "edited title" });
+// saveProject(defaultProject);
 
 const ccc = new Item({
   title: "Fix floor",
@@ -36,9 +36,10 @@ const ccc = new Item({
   priority: "High",
 });
 
-defaultProject.addItem(ccc);
+// defaultProject.addItem(ccc);
 saveProject(defaultProject);
 saveProject(secProject);
+addItemToProject(defaultProject.id, item);
 
 console.log("all projects:");
 displayProjects();

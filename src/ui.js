@@ -1,15 +1,20 @@
 import { Project } from "./projects";
+import { Item } from "./items";
 import {
   saveProject,
   getProject,
   getAllProjects,
   deleteProject,
+  addItemToProject,
 } from "./storage";
 
-let projectDialog = document.getElementById("projectDialog");
-let projectForm = document.getElementById("projectForm");
+const projectDialog = document.getElementById("projectDialog");
+const projectForm = document.getElementById("projectForm");
 const projectList = document.getElementById("projectList");
 const projectTemplate = document.getElementById("projectTemplate");
+
+const itemDialog = document.getElementById("itemDialog");
+const itemForm = document.getElementById("itemForm");
 const itemList = document.getElementById("itemList");
 const itemTemplate = document.getElementById("itemTemplate");
 
@@ -24,6 +29,21 @@ projectForm.addEventListener("submit", (event) => {
   projectDialog.close();
   displayProjects();
   selectCurrentProject(`project_${newProject.id.toString()}`);
+});
+
+itemForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  let formContent = event.target.elements;
+  let newItem = new Item({
+    title: formContent.itemName.value,
+    description: formContent.itemDescription.value,
+  });
+  let currentProject = getProject(currentProjectId);
+  console.log(`currentProject: ${currentProject}`);
+  addItemToProject(currentProjectId, newItem);
+  // saveProject(currentProject);
+  itemForm.reset();
+  itemDialog.close();
 });
 
 function displayProjects() {
@@ -71,14 +91,16 @@ function selectCurrentProject(projectId) {
     selectedProject.classList.add("bg-blue-100");
     currentProjectId = projectId;
     console.log(`current project = ${currentProjectId}`);
-    displayItems(currentProjectId); // Assuming this function is correctly set up to display items for the selected project
+    displayItems(currentProjectId);
   }
 }
 
 function displayItems(projectId) {
   console.log(projectId);
   let selectedProject = getProject(projectId);
+  console.log(selectedProject);
   let items = selectedProject.items;
+  console.log(`items: ${items}`);
 
   itemList.innerHTML = "";
 
