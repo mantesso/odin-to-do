@@ -9,15 +9,28 @@ import {
   removeItemFromProject,
 } from "./storage";
 
+const addProject = document.getElementById("addProject");
 const projectDialog = document.getElementById("projectDialog");
 const projectForm = document.getElementById("projectForm");
 const projectList = document.getElementById("projectList");
 const projectTemplate = document.getElementById("projectTemplate");
 
+const addItem = document.getElementById("addItem");
 const itemDialog = document.getElementById("itemDialog");
 const itemForm = document.getElementById("itemForm");
 const itemList = document.getElementById("itemList");
 const itemTemplate = document.getElementById("itemTemplate");
+
+addProject.addEventListener("click", openProjectForm);
+addItem.addEventListener("click", openItemForm);
+
+function openProjectForm() {
+  projectDialog.showModal();
+}
+
+function openItemForm() {
+  itemDialog.showModal();
+}
 
 let currentProjectId;
 
@@ -118,7 +131,17 @@ function displayItems(projectId) {
       clone.querySelector("li").id = item.id;
       clone.querySelector(".itemTitle").textContent = item.title;
       clone.querySelector(".itemDescription").textContent = item.description;
-      clone.querySelector(".itemDate").textContent = item.dueDate;
+      if (item.dueDate) {
+        clone.querySelector(
+          ".itemDueDate"
+        ).textContent = `Due date: ${item.dueDate}`;
+      }
+      if (item.priority) {
+        clone.querySelector(
+          ".itemPriority"
+        ).textContent = `Priority: ${item.priority}`;
+      }
+
       clone
         .querySelector(".deleteItemBtn")
         .addEventListener("click", removeItemFromProjectList);
