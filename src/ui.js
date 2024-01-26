@@ -105,6 +105,13 @@ function removeItemFromProjectList(e) {
   displayItems(projectId);
 }
 
+function editItem(e) {
+  const itemId = e.target.parentNode.parentNode.id;
+  let parts = itemId.split("_"); //remove 'item_' from itemId string
+  let parsedItemId = parts[1];
+  const projectId = currentProjectId;
+}
+
 function selectCurrentProject(projectId) {
   // Reset the styling for all project list items
   let projects = projectList.children;
@@ -158,10 +165,7 @@ function displayItems(projectId) {
       clone
         .querySelector(".deleteItemBtn")
         .addEventListener("click", removeItemFromProjectList);
-      // clone.querySelector("p").textContent = projectName;
-      // clone
-      // .querySelector("button")
-      // .addEventListener("click", removeProjectFromList);
+      clone.querySelector(".editItemBtn").addEventListener("click", editItem);
       itemList.appendChild(clone);
     });
   }
