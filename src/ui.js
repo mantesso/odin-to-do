@@ -6,6 +6,7 @@ import {
   getAllProjects,
   deleteProject,
   addItemToProject,
+  removeItemFromProject,
 } from "./storage";
 
 const projectDialog = document.getElementById("projectDialog");
@@ -75,6 +76,13 @@ function removeProjectFromList(e) {
   displayProjects();
 }
 
+function removeItemFromProjectList(e) {
+  const itemId = e.target.parentNode.parentNode.id;
+  const projectId = currentProjectId;
+  removeItemFromProject(projectId, itemId);
+  displayItems(projectId);
+}
+
 function selectCurrentProject(projectId) {
   // Reset the styling for all project list items
   let projects = projectList.children;
@@ -107,11 +115,13 @@ function displayItems(projectId) {
   if (items) {
     items.forEach((item) => {
       const clone = document.importNode(itemTemplate.content, true);
+      clone.querySelector("li").id = item.id;
       clone.querySelector(".itemTitle").textContent = item.title;
       clone.querySelector(".itemDescription").textContent = item.description;
       clone.querySelector(".itemDate").textContent = item.dueDate;
-
-      // clone.querySelector("li").addEventListener("click", selectCurrentProject);
+      clone
+        .querySelector(".deleteItemBtn")
+        .addEventListener("click", removeItemFromProjectList);
       // clone.querySelector("p").textContent = projectName;
       // clone
       // .querySelector("button")

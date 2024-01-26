@@ -38,10 +38,29 @@ function addItemToProject(projectId, item) {
   }
 }
 
+function removeItemFromProject(projectId, itemId) {
+  const project = getProject(projectId);
+  if (project) {
+    console.log(itemId);
+    const originalLength = project.items.length;
+    project.items = project.items.filter((item) => item.id != itemId);
+
+    // handle the case where the item isn't found
+    if (project.items.length === originalLength) {
+      console.log("Item not found in project:", itemId);
+    }
+    project.id = projectId;
+    saveProject(project);
+  } else {
+    console.error("Project not found:", projectId);
+  }
+}
+
 export {
   saveProject,
   getAllProjects,
   deleteProject,
   getProject,
   addItemToProject,
+  removeItemFromProject,
 };
