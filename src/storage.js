@@ -80,6 +80,18 @@ function updateItemInProject(projectId, itemId, updatedItem) {
   }
 }
 
+function toggleItemComplete(projectId, itemId) {
+  let project = getProject(projectId);
+  if (project) {
+    let itemIndex = project.items.findIndex((item) => item.id == itemId);
+    if (itemIndex > -1) {
+      project.items[itemIndex].completed = !project.items[itemIndex].completed;
+    }
+    project.id = projectId;
+    saveProject(project);
+  }
+}
+
 export {
   saveProject,
   getAllProjects,
@@ -89,4 +101,5 @@ export {
   removeItemFromProject,
   getItemFromProject,
   updateItemInProject,
+  toggleItemComplete,
 };

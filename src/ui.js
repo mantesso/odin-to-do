@@ -9,6 +9,7 @@ import {
   removeItemFromProject,
   getItemFromProject,
   updateItemInProject,
+  toggleItemComplete,
 } from "./storage";
 
 const addProject = document.getElementById("addProject");
@@ -67,7 +68,6 @@ itemForm.addEventListener("submit", (event) => {
       priority: formContent.itemPriority.value,
       dueDate: formContent.itemDueDate.value,
     };
-    console.log(`editing`, currentProjectId, editingItemId, updatedItem);
     updateItemInProject(currentProjectId, editingItemId, updatedItem);
     isEditing = false;
     editingItemId = null;
@@ -192,6 +192,10 @@ function displayItems(projectId) {
         ).textContent = `Priority: ${item.priority}`;
       }
 
+      let isComplete = clone.querySelector(".itemComplete");
+      isComplete.addEventListener("change", toggleItemCompletedInList);
+      isComplete.checked = item.completed;
+
       clone
         .querySelector(".deleteItemBtn")
         .addEventListener("click", removeItemFromProjectList);
@@ -199,6 +203,16 @@ function displayItems(projectId) {
       itemList.appendChild(clone);
     });
   }
+}
+
+function toggleItemCompletedInList(e) {
+  console.log("togglind..");
+  const itemId = e.target.parentNode.parentNode.id;
+  let parts = itemId.split("_"); //remove 'item_' from itemId string
+  let parsedItemId = parts[1];
+
+  toggleItemComplete(currentProjectId, parsedItemId);
+  displayItems(currentProjectId);
 }
 
 export { displayProjects };
