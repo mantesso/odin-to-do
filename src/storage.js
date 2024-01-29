@@ -41,7 +41,6 @@ function addItemToProject(projectId, item) {
 function removeItemFromProject(projectId, itemId) {
   const project = getProject(projectId);
   if (project) {
-    console.log(itemId);
     const originalLength = project.items.length;
     project.items = project.items.filter((item) => item.id != itemId);
 
@@ -56,6 +55,31 @@ function removeItemFromProject(projectId, itemId) {
   }
 }
 
+function getItemFromProject(projectId, itemId) {
+  const project = getProject(projectId);
+  if (project) {
+    let item = project.items.filter((item) => item.id == itemId);
+    return item[0];
+  } else {
+    console.error("Project not found:", projectId);
+  }
+}
+
+function updateItemInProject(projectId, itemId, updatedItem) {
+  let project = getProject(projectId);
+  if (project) {
+    let itemIndex = project.items.findIndex((item) => item.id == itemId);
+    if (itemIndex > -1) {
+      project.items[itemIndex] = {
+        ...project.items[itemIndex],
+        ...updatedItem,
+      };
+      project.id = projectId;
+      saveProject(project);
+    }
+  }
+}
+
 export {
   saveProject,
   getAllProjects,
@@ -63,4 +87,6 @@ export {
   getProject,
   addItemToProject,
   removeItemFromProject,
+  getItemFromProject,
+  updateItemInProject,
 };

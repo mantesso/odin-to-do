@@ -7,6 +7,8 @@ import {
   deleteProject,
   addItemToProject,
   removeItemFromProject,
+  getItemFromProject,
+  updateItemInProject,
 } from "./storage";
 
 const addProject = document.getElementById("addProject");
@@ -23,6 +25,10 @@ const itemTemplate = document.getElementById("itemTemplate");
 
 addProject.addEventListener("click", openProjectForm);
 addItem.addEventListener("click", openItemForm);
+
+// variables to track editing of an item
+let isEditing = false;
+let editingItemId = null;
 
 function openProjectForm() {
   projectDialog.showModal();
@@ -52,14 +58,30 @@ projectForm.addEventListener("submit", (event) => {
 itemForm.addEventListener("submit", (event) => {
   event.preventDefault();
   let formContent = event.target.elements;
-  let newItem = new Item({
-    title: formContent.itemTitle.value,
-    description: formContent.itemDescription.value,
-    priority: formContent.itemPriority.value,
-    dueDate: formContent.itemDueDate.value,
-  });
 
-  addItemToProject(currentProjectId, newItem);
+  if (isEditing) {
+    // Update existing item
+    let updatedItem = {
+      title: formContent.itemTitle.value,
+      description: formContent.itemDescription.value,
+      priority: formContent.itemPriority.value,
+      dueDate: formContent.itemDueDate.value,
+    };
+    console.log(`editing`, currentProjectId, editingItemId, updatedItem);
+    updateItemInProject(currentProjectId, editingItemId, updatedItem);
+    isEditing = false;
+    editingItemId = null;
+  } else {
+    // Add new item
+    let newItem = new Item({
+      title: formContent.itemTitle.value,
+      description: formContent.itemDescription.value,
+      priority: formContent.itemPriority.value,
+      dueDate: formContent.itemDueDate.value,
+    });
+    addItemToProject(currentProjectId, newItem);
+  }
+
   itemForm.reset();
   itemDialog.close();
   selectCurrentProject(currentProjectId);
@@ -106,10 +128,18 @@ function removeItemFromProjectList(e) {
 }
 
 function editItem(e) {
+  isEditing = true;
   const itemId = e.target.parentNode.parentNode.id;
-  let parts = itemId.split("_"); //remove 'item_' from itemId string
-  let parsedItemId = parts[1];
-  const projectId = currentProjectId;
+  let parts = itemId.split("_"); // Remove 'item_' from itemId string
+  editingItemId = parts[1];
+
+  const item = getItemFromProject(currentProjectId, editingItemId);
+  document.querySelector("#itemTitle").value = item.title;
+  document.querySelector("#itemDescription").value = item.description;
+  document.querySelector("#itemPriority").value = item.priority;
+  document.querySelector("#itemDueDate").value = item.dueDate;
+
+  itemDialog.showModal();
 }
 
 function selectCurrentProject(projectId) {
