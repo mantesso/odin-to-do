@@ -135,6 +135,7 @@ function removeProjectFromList(e) {
   const projectId = e.target.parentNode.parentNode.id;
   deleteProject(projectId);
   displayProjects();
+  clearItems();
 }
 
 function removeItemFromProjectList(e) {
