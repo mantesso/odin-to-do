@@ -1,56 +1,29 @@
 import "./style.css";
 import { Item } from "./items";
 import { Project } from "./projects";
-import { deleteProject, saveProject, addItemToProject } from "./storage";
-import { addEventListeners, displayProjects } from "./ui";
+import { saveProject, addItemToProject } from "./storage";
+import { displayProjects } from "./ui";
 
-// addEventListeners();
-// displayProjects();
+if (window.localStorage.length === 0) {
+  const item1 = new Item({
+    title: "Buy paint",
+    description: "Purchase white paint for the living room",
+    dueDate: "2024-01-20",
+    priority: "High",
+  });
 
-const item = new Item({
-  title: "Buy paint",
-  description: "Purchase white paint for the living room",
-  dueDate: "2024-01-20",
-  priority: "High",
-});
+  const item2 = new Item({
+    title: "Print invites",
+    description: "Print and send invitations",
+    dueDate: "2024-01-25",
+    priority: "Low",
+  });
 
-const bbb = new Item({
-  title: "Fix car",
-  description: "fix motor",
-  dueDate: "2024-01-24",
-  priority: "High",
-});
+  let defaultProject = new Project("Example");
 
-let defaultProject = new Project("first");
-let secProject = new Project("secProject");
-// defaultProject.addItem(item);
-// defaultProject.addItem(bbb);
-
-defaultProject.editItem(1, { title: "edited title" });
-saveProject(defaultProject);
-
-const ccc = new Item({
-  title: "Fix floor",
-  description: "fix motor",
-  dueDate: "2024-01-24",
-  priority: "High",
-});
-
-// defaultProject.addItem(ccc);
-saveProject(defaultProject);
-saveProject(secProject);
-addItemToProject(defaultProject.id, item);
+  saveProject(defaultProject);
+  addItemToProject(defaultProject.id, item1);
+  addItemToProject(defaultProject.id, item2);
+}
 
 displayProjects();
-
-// // console.log(item);
-// console.log(defaultProject);
-// const itemSerialized = JSON.stringify(item);
-// // console.log(itemSerialized);
-// saveItem(item);
-
-// let retrievedFromStorage = getItem("1");
-// retrievedFromStorage.title = "edited title";
-
-// console.log(retrievedFromStorage);
-// saveItem(retrievedFromStorage);

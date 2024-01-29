@@ -165,7 +165,7 @@ function clearItems() {
 }
 
 function displayItems(projectId) {
-  let selectedProject = getProject(projectId); // Just use projectId here
+  let selectedProject = getProject(projectId);
 
   if (!selectedProject) {
     console.error(`Project with ID ${projectId} not found.`);
@@ -206,7 +206,6 @@ function displayItems(projectId) {
 }
 
 function toggleItemCompletedInList(e) {
-  console.log("togglind..");
   const itemId = e.target.parentNode.parentNode.id;
   let parts = itemId.split("_"); //remove 'item_' from itemId string
   let parsedItemId = parts[1];
