@@ -13,12 +13,14 @@ import {
 } from "./storage";
 
 const addProject = document.getElementById("addProject");
+const cancelProjectButton = document.getElementById("cancelProjectButton");
 const projectDialog = document.getElementById("projectDialog");
 const projectForm = document.getElementById("projectForm");
 const projectList = document.getElementById("projectList");
 const projectTemplate = document.getElementById("projectTemplate");
 
 const addItem = document.getElementById("addItem");
+const cancelItemButton = document.getElementById("cancelItemButton");
 const itemDialog = document.getElementById("itemDialog");
 const itemForm = document.getElementById("itemForm");
 const itemList = document.getElementById("itemList");
@@ -42,6 +44,14 @@ function openItemForm() {
     itemDialog.showModal();
   }
 }
+
+cancelProjectButton.addEventListener("click", () => {
+  projectDialog.close();
+});
+
+cancelItemButton.addEventListener("click", () => {
+  itemDialog.close();
+});
 
 let currentProjectId;
 
@@ -92,10 +102,16 @@ function displayProjects() {
   const projects = getAllProjects();
   projectList.innerHTML = "";
 
-  for (let project in projects) {
-    const currentProject = JSON.parse(projects[project]);
+  let firstProjectId = null; // Variable to store the ID of the first project
+
+  for (let projectKey in projects) {
+    const currentProject = JSON.parse(projects[projectKey]);
     const projectName = currentProject.name;
-    const projectId = project;
+    const projectId = projectKey;
+
+    if (firstProjectId === null) {
+      firstProjectId = projectId; // Set the first project ID
+    }
 
     const clone = document.importNode(projectTemplate.content, true);
     clone.querySelector("li").id = projectId;
@@ -108,6 +124,10 @@ function displayProjects() {
       .querySelector("button")
       .addEventListener("click", removeProjectFromList);
     projectList.appendChild(clone);
+  }
+
+  if (firstProjectId) {
+    selectCurrentProject(firstProjectId); // Automatically select the first project
   }
 }
 
