@@ -8,7 +8,7 @@ This project is part of The Odin Project JavaScript [course](https://www.theodin
 
 ## Concepts worked
 
-- Organizing source js source code in Modules. Use of Classes.
+- Organizing js source code in modules. Use of Classes.
 - Separating application logic from DOM-related stuff.
 - webpack for bundling.
 - use of the browser's Web Storage API
