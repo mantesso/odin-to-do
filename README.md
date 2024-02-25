@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project is part of The Odin Project JavaScript [course](https://www.theodinproject.com/courses/javascript).
+This project is part of The Odin Project JavaScript [course](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/javascript).
 
 ## Concepts worked
 
